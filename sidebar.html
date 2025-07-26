@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Responsive Collapsible Sidebar</title>
+  <style>
+    :root {
+      --sidebar-expanded: 250px;
+      --sidebar-collapsed: 60px;
+      --transition-speed: 0.3s;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: sans-serif;
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      background: #522742;
+      color: white;
+      transition: width var(--transition-speed), transform var(--transition-speed);
+      width: var(--sidebar-expanded);
+      z-index: 1000;
+      overflow: hidden;
+    }
+
+    .sidebar.collapsed {
+      width: var(--sidebar-collapsed);
+    }
+
+    .sidebar.hidden-mobile {
+      transform: translateX(-100%);
+    }
+
+   
+    .logo {
+      padding: 1rem;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .logo span {
+      margin-left: 10px;
+    }
+
+    .sidebar.collapsed .logo span {
+      display: none;
+    }
+
+    
+    .nav-links {
+      list-style: none;
+      padding: 1rem 0;
+    }
+
+    .nav-links li {
+      padding: 0.8rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+
+    .nav-links li:hover {
+      background: #833f7a;
+    }
+
+    .nav-links i {
+      width: 30px;
+      text-align: center;
+    }
+
+    .sidebar.collapsed .nav-links li span {
+      display: none;
+    }
+
+    /*Mobile Toggle Button*/
+    .mobile-toggle {
+      display: none;
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      z-index: 1001;
+      background: #522742;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      width: 50px;
+      height: 50px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+    }
+
+    .mobile-toggle:hover {
+      background: #833f7a;
+      transform: scale(1.05);
+    }
+
+   
+    main {
+      flex: 1;
+      margin-left: var(--sidebar-expanded);
+      padding: 2rem;
+      transition: margin-left var(--transition-speed);
+    }
+
+    .sidebar.collapsed ~ main {
+      margin-left: var(--sidebar-collapsed);
+    }
+
+    /*Mobile Layout*/
+    @media (max-width: 768px) {
+      .mobile-toggle {
+        display: block;
+      }
+
+      .sidebar {
+        width: var(--sidebar-expanded);
+      }
+
+      .sidebar.hidden-mobile {
+        transform: translateX(-100%);
+      }
+
+      .sidebar.collapsed .logo span,
+      .sidebar.collapsed .nav-links li span {
+        display: inline;
+      }
+
+      main {
+        margin-left: var(--sidebar-expanded);
+        transition: margin-left var(--transition-speed);
+      }
+
+      .sidebar.hidden-mobile ~ main {
+        margin-left: 0;
+        padding-top: 70px; 
+      }
+
+      
+      .sidebar:not(.hidden-mobile) ~ .mobile-toggle {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="logo" id="logoToggle">
+      <i>​✨</i><span>SideBar</span>
+    </div>
+    <ul class="nav-links">
+      <li><i>🏠</i><span>Home</span></li>
+      <li><i>📄</i><span>About</span></li>
+      <li><i>📦</i><span>Projects</span></li>
+      <li><i>📞</i><span>Contact</span></li>
+      <li><i>⚙️</i><span>Settings</span></li>
+    </ul>
+  </aside>
+
+  <!-- Mobile Toggle Button -->
+  <button class="mobile-toggle" id="mobileToggle">☰</button>
+
+  <!-- Main Content -->
+  <main>
+    <h1>Responsive Collapsible Sidebar</h1>
+    <p>Main Page.</p>
+  </main>
+
+  <script>
+    const sidebar = document.getElementById('sidebar');
+    const logoToggle = document.getElementById('logoToggle');
+    const mobileToggle = document.getElementById('mobileToggle');
+
+    function isMobile() {
+      return window.innerWidth <= 768;
+    }
+
+    function closeMobileSidebar() {
+      sidebar.classList.add('hidden-mobile');
+    }
+
+    function openMobileSidebar() {
+      sidebar.classList.remove('hidden-mobile');
+    }
+
+    function toggleSidebar() {
+      if (isMobile()) {
+        if (sidebar.classList.contains('hidden-mobile')) {
+          openMobileSidebar();
+        } else {
+          closeMobileSidebar();
+        }
+      } else {
+        sidebar.classList.toggle('collapsed');
+      }
+    }
+
+   
+    logoToggle.addEventListener('click', toggleSidebar);
+    mobileToggle.addEventListener('click', toggleSidebar);
+
+    
+    window.addEventListener('resize', () => {
+      if (!isMobile()) {
+        sidebar.classList.remove('hidden-mobile');
+      }
+    });
+
+    
+    function initializeMobileState() {
+      if (isMobile()) {
+       
+        sidebar.classList.remove('hidden-mobile');
+      }
+    }
+
+    initializeMobileState();
+  </script>
+
+</body>
+</html>
