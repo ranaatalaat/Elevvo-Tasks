@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lavender Blog</title>
+<style>
+  /* Reset */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f3f0fa;
+    color: #3a2c5a;
+  }
+  header {
+    background-color: #7965c1;
+    color: white;
+    padding: 1.5rem 2rem;
+    text-align: center;
+    font-weight: 700;
+    font-size: 2rem;
+    letter-spacing: 1.05px;
+  }
+  main {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+  /* Filters Section */
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    justify-content: center;
+  }
+  select, input[type="text"] {
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+    border: 2px solid #7965c1;
+    border-radius: 8px;
+    background: #e7e1f6;
+    color: #3a2c5a;
+    outline-offset: 2px;
+    transition: border-color 0.25s ease;
+  }
+  select:hover, input[type="text"]:hover,
+  select:focus, input[type="text"]:focus {
+    border-color: #9c84d7;
+    background: #f0eafc;
+  }
+
+  /* Posts grid */
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(280px,1fr));
+    gap: 1.8rem;
+  }
+  
+  /* Post Card */
+  .post-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 3px 8px rgb(121 101 193 / 0.3);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+  }
+  .post-card:hover {
+    box-shadow: 0 6px 16px rgb(121 101 193 / 0.5);
+  }
+  .post-image {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+  }
+  .post-content {
+    padding: 1rem 1.2rem 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .post-title {
+    font-size: 1.2rem;
+    margin: 0 0 0.5rem;
+    font-weight: 700;
+    color: #5e4fc2;
+  }
+  .post-desc {
+    flex-grow: 1;
+    font-size: 0.95rem;
+    color: #4a3a8e;
+    margin-bottom: 0.8rem;
+  }
+  .post-date {
+    font-size: 0.85rem;
+    color: #917ed6;
+    font-weight: 600;
+    align-self: flex-end;
+  }
+
+  /* Pagination */
+  .pagination {
+    margin: 2.5rem 0 3rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .pagination button {
+    background: #7965c1;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  .pagination button[disabled] {
+    background: #a89de3;
+    cursor: default;
+  }
+  .pagination button:hover:not([disabled]) {
+    background: #5e4fc2;
+  }
+
+  /* Responsive tweaks */
+  @media (max-width: 480px) {
+    .post-image {
+      height: 120px;
+    }
+    header {
+      font-size: 1.5rem;
+      padding: 1rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  Lavender Blog
+</header>
+
+<main>
+  <section class="filters" aria-label="Blog post filters">
+    <select id="categoryFilter" aria-label="Filter posts by category">
+      <option value="all">All Categories</option>
+      <option value="Tech">Tech</option>
+      <option value="Travel">Travel</option>
+      <option value="Food">Food</option>
+    </select>
+
+    <input type="text" id="searchInput" placeholder="Search posts by title..." aria-label="Search posts by title" />
+  </section>
+
+  <section class="posts-grid" id="postsGrid" aria-live="polite" aria-label="Blog posts">
+    <!-- Posts inserted with JS -->
+  </section>
+
+  <section class="pagination" aria-label="Pagination controls">
+    <button id="prevPage" aria-label="Previous page" disabled>&laquo; Prev</button>
+    <button id="nextPage" aria-label="Next page" disabled>Next &raquo;</button>
+  </section>
+</main>
+
+<script>
+  // Sample blog posts data
+  const posts = [
+    {
+      id: 1,
+      title: "Exploring the Latest in AI Technology",
+      category: "Tech",
+      image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      description: "Dive into the world of artificial intelligence and see how AI is reshaping industries.",
+      date: "2025-08-18"
+    },
+    {
+      id: 2,
+      title: "Top 10 Hidden Travel Gems in Europe",
+      category: "Travel",
+      image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      description: "Discover lesser-known but breathtaking travel destinations spread across Europe.",
+      date: "2025-07-22"
+    },
+    {
+      id: 3,
+      title: "Cooking with Lavender: Recipes and Tips",
+      category: "Food",
+      image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      description: "Add a hint of lavender to your dishes and desserts with these easy recipes.",
+      date: "2025-08-10"
+    },
+    {
+      id: 4,
+      title: "Smart Home Gadgets Worth Investing In",
+      category: "Tech",
+      image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      description: "A round-up of smart home devices that'll simplify your life.",
+      date: "2025-07-30"
+    },
+    {
+      id: 5,
+      title: "A Foodie's Guide to Street Food Around the World",
+      category: "Food",
+      image: "https://images.squarespace-cdn.com/content/v1/583e0b94d1758e46ff39161c/1536785956546-GE5PNGOGTC7RFQXT1N8B/Luxium-Creative-Arizona-Phoenix-Food-Photographer-Photography-Korean-Street-Food-Justin-Park-Drunken-Tiger-Mesa-8059.jpg?format=1000w",
+      description: "Explore popular street foods that you must try when traveling.",
+      date: "2025-08-17"
+    },
+    {
+      id: 6,
+      title: "Backpacking Through Southeast Asia",
+      category: "Travel",
+      image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      description: "Tips and advice for a budget-friendly backpacking trip.",
+      date: "2025-06-15"
+    },
+    {
+      id: 7,
+      title: "Understanding Quantum Computing",
+      category: "Tech",
+      image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      description: "An introduction to the basics of quantum computing and its potential.",
+      date: "2025-05-05"
+    },
+    {
+      id: 8,
+      title: "Mediterranean Diet: Healthy and Delicious",
+      category: "Food",
+      image: "https://images.unsplash.com/photo-1468071174046-657d9d351a40?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      description: "How to embrace the Mediterranean diet for better health and flavor.",
+      date: "2025-07-01"
+    },
+    {
+      id: 9,
+      title: "Exploring Japan's Cherry Blossom Season",
+      category: "Travel",
+      image: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      description: "A guide to experiencing the stunning sakura bloom in Japan.",
+      date: "2025-03-28"
+    },
+    {
+      id: 10,
+      title: "Building Progressive Web Apps with Modern Tools",
+      category: "Tech",
+      image: "https://images.unsplash.com/photo-1517433456452-f9633a875f6f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      description: "Create fast, reliable PWAs using the latest JavaScript frameworks and tools.",
+      date: "2025-08-12"
+    }
+  ];
+
+  const POSTS_PER_PAGE = 3;
+
+  let currentCategory = "all";
+  let currentSearch = "";
+  let currentPage = 1;
+
+  const categorySelect = document.getElementById('categoryFilter');
+  const searchInput = document.getElementById('searchInput');
+  const postsGrid = document.getElementById('postsGrid');
+  const prevPageBtn = document.getElementById('prevPage');
+  const nextPageBtn = document.getElementById('nextPage');
+
+  function compareDatesDesc(a, b) {
+    return new Date(b.date) - new Date(a.date);
+  }
+
+  // Filter posts by category and search
+  function getFilteredPosts() {
+    return posts
+      .filter(post => currentCategory === 'all' || post.category === currentCategory)
+      .filter(post => post.title.toLowerCase().includes(currentSearch.toLowerCase()))
+      .sort(compareDatesDesc);
+  }
+
+  function renderPosts() {
+    const filteredPosts = getFilteredPosts();
+    const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
+    if(currentPage > totalPages) currentPage = totalPages || 1;
+
+    const start = (currentPage - 1) * POSTS_PER_PAGE;
+    const end = start + POSTS_PER_PAGE;
+    const postsToShow = filteredPosts.slice(start, end);
+
+    // Clear current posts
+    postsGrid.innerHTML = '';
+
+    if (postsToShow.length === 0) {
+      postsGrid.innerHTML = `<p style="grid-column: 1/-1; text-align:center; color:#6b5ea8; font-size:1.2rem;">No posts found.</p>`;
+    } else {
+      for (const post of postsToShow) {
+        const postEl = document.createElement('article');
+        postEl.className = 'post-card';
+
+        postEl.innerHTML = `
+          <img src="${post.image}" alt="${post.title}" class="post-image" loading="lazy" />
+          <div class="post-content">
+            <h2 class="post-title">${post.title}</h2>
+            <p class="post-desc">${post.description}</p>
+            <time datetime="${post.date}" class="post-date">${new Date(post.date).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}</time>
+          </div>
+        `;
+        postsGrid.appendChild(postEl);
+      }
+    }
+
+    // Update pagination buttons
+    prevPageBtn.disabled = currentPage <= 1;
+    nextPageBtn.disabled = currentPage >= totalPages;
+  }
+
+  // Event Listeners
+  categorySelect.addEventListener('change', e => {
+    currentCategory = e.target.value;
+    currentPage = 1;
+    renderPosts();
+  });
+
+  searchInput.addEventListener('input', e => {
+    currentSearch = e.target.value.trim();
+    currentPage = 1;
+    renderPosts();
+  });
+
+  prevPageBtn.addEventListener('click', () => {
+    if (currentPage > 1) {
+      currentPage--;
+      renderPosts();
+      window.scrollTo({ top: postsGrid.offsetTop - 30, behavior: 'smooth' });
+    }
+  });
+
+  nextPageBtn.addEventListener('click', () => {
+    const filteredPosts = getFilteredPosts();
+    const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
+    if (currentPage < totalPages) {
+      currentPage++;
+      renderPosts();
+      window.scrollTo({ top: postsGrid.offsetTop - 30, behavior: 'smooth' });
+    }
+  });
+
+  // Initial render
+  renderPosts();
+</script>
+
+</body>
+</html>
