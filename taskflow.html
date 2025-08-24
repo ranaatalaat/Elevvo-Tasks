@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TaskFlow - Organize Your Life, Amplify Your Productivity</title>
-    <meta name="description" content="The ultimate task management app that helps teams and individuals stay organized, collaborate seamlessly, and achieve their goals faster than ever.">
+    <title>TaskFlow - Organize Your Tasks Like Never Before</title>
+    <meta name="description" content="TaskFlow is the ultimate task management app that helps you organize, prioritize, and complete your tasks efficiently. Try it free today!">
     
     <style>
         * {
@@ -14,765 +14,621 @@
         }
 
         :root {
-            /* Purple/Lavender Professional Color Palette */
-            --primary-50: #faf8ff;
-            --primary-100: #f3f0ff;
-            --primary-200: #e9e5ff;
-            --primary-300: #d4cdff;
-            --primary-400: #b8a7ff;
-            --primary-500: #9b82ff;
-            --primary-600: #8366ff;
-            --primary-700: #7050f2;
-            --primary-800: #5d42cc;
-            --primary-900: #4d35a6;
-            
-            --accent-50: #fdf4ff;
-            --accent-100: #fae8ff;
-            --accent-200: #f5d0fe;
-            --accent-300: #f0abfc;
-            --accent-400: #e879f9;
-            --accent-500: #d946ef;
-            --accent-600: #c026d3;
-            --accent-700: #a21caf;
-            --accent-800: #86198f;
-            --accent-900: #701a75;
-
-            --gray-50: #fafafa;
-            --gray-100: #f5f5f5;
-            --gray-200: #e5e5e5;
-            --gray-300: #d4d4d4;
-            --gray-400: #a3a3a3;
-            --gray-500: #737373;
-            --gray-600: #525252;
-            --gray-700: #404040;
-            --gray-800: #262626;
-            --gray-900: #171717;
-
-            --white: #ffffff;
-            --black: #000000;
+            --primary: #ff6b35;
+            --primary-dark: #e55a2b;
+            --primary-light: #ff8c5a;
+            --secondary: #f7931e;
+            --accent: #ffa726;
+            --background: #fefefe;
+            --surface: #ffffff;
+            --text: #2d3748;
+            --text-light: #718096;
+            --border: #e2e8f0;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+            --gradient-subtle: linear-gradient(135deg, #fff5f0, #ffeee6);
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: var(--gray-800);
-            background-color: var(--white);
+            color: var(--text);
+            background: var(--background);
+            overflow-x: hidden;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 1.5rem;
+            padding: 0 20px;
+        }
+
+        .section {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* Header */
         header {
-            background: linear-gradient(135deg, var(--primary-600), var(--accent-600));
-            color: var(--white);
-            padding: 1rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(112, 80, 242, 0.15);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--white), var(--primary-100));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: var(--white);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-        }
-
-        .nav-links a:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-2px);
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, var(--primary-50), var(--accent-50));
-            padding: 8rem 0 4rem;
+            background: var(--gradient);
+            color: white;
+            padding: 80px 0 120px;
             text-align: center;
             position: relative;
             overflow: hidden;
         }
 
-        .hero::before {
+        header::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%"><stop offset="0%" stop-color="%23ffffff" stop-opacity="0.1"/><stop offset="100%" stop-color="%239b82ff" stop-opacity="0.05"/></radialGradient></defs><circle cx="200" cy="200" r="100" fill="url(%23a)"/><circle cx="800" cy="300" r="150" fill="url(%23a)"/><circle cx="400" cy="700" r="120" fill="url(%23a)"/></svg>');
-            opacity: 0.6;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255, 255, 255, 0.1) 10px,
+                rgba(255, 255, 255, 0.1) 20px
+            );
+            animation: slide 20s linear infinite;
+        }
+
+        @keyframes slide {
+            0% { transform: translateX(-50px) translateY(-50px); }
+            100% { transform: translateX(50px) translateY(50px); }
         }
 
         .hero-content {
             position: relative;
-            z-index: 1;
+            z-index: 2;
         }
 
-        .hero h1 {
-            font-size: 3.5rem;
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
             font-weight: 800;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, var(--primary-700), var(--accent-600));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.2;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
-        .hero p {
-            font-size: 1.3rem;
-            color: var(--gray-600);
-            margin-bottom: 2.5rem;
+        .hero-content p {
+            font-size: 1.25rem;
+            margin-bottom: 40px;
+            opacity: 0.95;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
         }
 
-        .btn {
+        .cta-button {
             display: inline-block;
-            padding: 1rem 2rem;
-            border-radius: 0.75rem;
+            background: white;
+            color: var(--primary);
+            padding: 15px 40px;
             text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
+            border-radius: 50px;
+            font-weight: 700;
             font-size: 1.1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary-600), var(--accent-600));
-            color: var(--white);
-            box-shadow: 0 10px 30px rgba(112, 80, 242, 0.3);
-        }
-
-        .btn-primary:hover {
+        .cta-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(112, 80, 242, 0.4);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            background: transparent;
+            color: white;
+            border-color: white;
         }
 
         /* Features Section */
         .features {
-            padding: 5rem 0;
-            background: var(--white);
+            padding: 100px 0;
+            background: var(--gradient-subtle);
         }
 
         .section-title {
             text-align: center;
             font-size: 2.5rem;
             font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--gray-800);
-        }
-
-        .section-subtitle {
-            text-align: center;
-            font-size: 1.2rem;
-            color: var(--gray-600);
-            margin-bottom: 4rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+            margin-bottom: 60px;
+            color: var(--text);
         }
 
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.5rem;
-            margin-top: 3rem;
+            gap: 40px;
+            margin-top: 60px;
         }
 
         .feature-card {
-            background: var(--white);
-            padding: 2.5rem;
-            border-radius: 1rem;
-            box-shadow: 0 10px 30px rgba(112, 80, 242, 0.1);
+            background: var(--surface);
+            padding: 40px 30px;
+            border-radius: 20px;
             text-align: center;
+            box-shadow: 0 10px 30px var(--shadow);
             transition: all 0.3s ease;
-            border: 1px solid var(--primary-100);
+            border: 2px solid transparent;
         }
 
         .feature-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(112, 80, 242, 0.15);
+            box-shadow: 0 20px 50px rgba(255, 107, 53, 0.2);
+            border-color: var(--primary);
         }
 
         .feature-icon {
-            width: 4rem;
-            height: 4rem;
-            background: linear-gradient(135deg, var(--primary-600), var(--accent-600));
-            border-radius: 1rem;
+            width: 80px;
+            height: 80px;
+            background: var(--gradient);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 1.5rem;
-            font-size: 1.5rem;
-            color: var(--white);
+            margin: 0 auto 20px;
+            font-size: 2rem;
         }
 
         .feature-card h3 {
             font-size: 1.5rem;
             font-weight: 600;
-            margin-bottom: 1rem;
-            color: var(--gray-800);
+            margin-bottom: 15px;
+            color: var(--text);
         }
 
         .feature-card p {
-            color: var(--gray-600);
+            color: var(--text-light);
             line-height: 1.7;
         }
 
         /* Testimonials Section */
         .testimonials {
-            padding: 5rem 0;
-            background: linear-gradient(135deg, var(--primary-50), var(--accent-50));
+            padding: 100px 0;
+            background: var(--background);
         }
 
         .testimonials-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+            gap: 40px;
+            margin-top: 60px;
         }
 
-        .testimonial {
-            background: var(--white);
-            padding: 2rem;
-            border-radius: 1rem;
-            box-shadow: 0 10px 30px rgba(112, 80, 242, 0.1);
+        .testimonial-card {
+            background: var(--surface);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px var(--shadow);
+            position: relative;
             transition: all 0.3s ease;
         }
 
-        .testimonial:hover {
+        .testimonial-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(112, 80, 242, 0.15);
+            box-shadow: 0 20px 50px rgba(255, 107, 53, 0.15);
         }
 
-        .testimonial-content {
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            left: 30px;
+            font-size: 4rem;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .testimonial-text {
             font-style: italic;
-            color: var(--gray-600);
-            margin-bottom: 1.5rem;
+            margin-bottom: 20px;
             font-size: 1.1rem;
             line-height: 1.7;
+            color: var(--text);
         }
 
         .testimonial-author {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 15px;
         }
 
         .author-avatar {
-            width: 3rem;
-            height: 3rem;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary-600), var(--accent-600));
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--white);
-            font-weight: 600;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
         }
 
         .author-info h4 {
             font-weight: 600;
-            color: var(--gray-800);
+            color: var(--text);
         }
 
         .author-info p {
-            color: var(--gray-500);
+            color: var(--text-light);
             font-size: 0.9rem;
         }
 
         /* Pricing Section */
         .pricing {
-            padding: 5rem 0;
-            background: var(--white);
+            padding: 100px 0;
+            background: var(--gradient-subtle);
         }
 
         .pricing-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+            gap: 40px;
+            margin-top: 60px;
         }
 
         .pricing-card {
-            background: var(--white);
-            border: 2px solid var(--primary-100);
-            border-radius: 1rem;
-            padding: 2.5rem;
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 40px 30px;
             text-align: center;
+            box-shadow: 0 10px 30px var(--shadow);
             transition: all 0.3s ease;
             position: relative;
+            border: 2px solid transparent;
         }
 
         .pricing-card:hover {
             transform: translateY(-10px);
-            border-color: var(--primary-300);
-            box-shadow: 0 20px 40px rgba(112, 80, 242, 0.15);
+            box-shadow: 0 20px 50px rgba(255, 107, 53, 0.2);
+            border-color: var(--primary);
         }
 
         .pricing-card.featured {
-            border-color: var(--primary-600);
-            background: linear-gradient(135deg, var(--primary-50), var(--accent-50));
+            border-color: var(--primary);
+            transform: scale(1.05);
         }
 
         .pricing-card.featured::before {
             content: 'Most Popular';
             position: absolute;
-            top: -0.75rem;
+            top: -15px;
             left: 50%;
             transform: translateX(-50%);
-            background: linear-gradient(135deg, var(--primary-600), var(--accent-600));
-            color: var(--white);
-            padding: 0.5rem 1.5rem;
-            border-radius: 2rem;
+            background: var(--gradient);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
             font-size: 0.9rem;
             font-weight: 600;
         }
 
-        .pricing-card h3 {
+        .plan-name {
             font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: var(--gray-800);
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text);
         }
 
-        .price {
+        .plan-price {
             font-size: 3rem;
             font-weight: 800;
-            color: var(--primary-600);
-            margin-bottom: 0.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
         }
 
-        .price-period {
-            color: var(--gray-500);
-            margin-bottom: 2rem;
+        .plan-price span {
+            font-size: 1rem;
+            color: var(--text-light);
         }
 
-        .features-list {
+        .plan-features {
             list-style: none;
-            margin-bottom: 2rem;
+            margin-bottom: 30px;
         }
 
-        .features-list li {
-            padding: 0.5rem 0;
-            color: var(--gray-600);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+        .plan-features li {
+            padding: 8px 0;
+            color: var(--text);
         }
 
-        .features-list li::before {
+        .plan-features li:before {
             content: '✓';
-            color: var(--primary-600);
+            color: var(--primary);
             font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .plan-button {
+            width: 100%;
+            padding: 15px;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .plan-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 107, 53, 0.3);
         }
 
         /* Footer */
         footer {
-            background: linear-gradient(135deg, var(--gray-800), var(--gray-900));
-            color: var(--white);
-            padding: 3rem 0 1rem;
+            background: var(--text);
+            color: white;
+            padding: 60px 0 30px;
         }
 
         .footer-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
+            gap: 40px;
+            margin-bottom: 40px;
         }
 
         .footer-section h3 {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
         }
 
-        .footer-section a {
-            color: var(--gray-300);
+        .footer-section p, .footer-section a {
+            color: #cbd5e0;
             text-decoration: none;
-            display: block;
-            margin-bottom: 0.5rem;
-            transition: color 0.3s ease;
+            line-height: 1.8;
         }
 
         .footer-section a:hover {
-            color: var(--primary-400);
+            color: var(--primary);
         }
 
         .social-links {
             display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
+            gap: 15px;
+            margin-top: 20px;
         }
 
         .social-link {
-            width: 2.5rem;
-            height: 2.5rem;
-            background: linear-gradient(135deg, var(--primary-600), var(--accent-600));
-            border-radius: 0.5rem;
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--white);
+            color: white;
             text-decoration: none;
             transition: all 0.3s ease;
         }
 
         .social-link:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(112, 80, 242, 0.3);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
         }
 
         .footer-bottom {
-            border-top: 1px solid var(--gray-700);
-            padding-top: 1rem;
             text-align: center;
-            color: var(--gray-400);
-        }
-
-        /* Animations */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Mobile Menu */
-        .mobile-menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--white);
-            font-size: 1.5rem;
-            cursor: pointer;
+            padding-top: 30px;
+            border-top: 1px solid #4a5568;
+            color: #a0aec0;
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: linear-gradient(135deg, var(--primary-600), var(--accent-600));
-                flex-direction: column;
-                padding: 1rem;
-                box-shadow: 0 4px 20px rgba(112, 80, 242, 0.3);
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .mobile-menu-toggle {
-                display: block;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
-                font-size: 1.1rem;
-            }
-
             .container {
-                padding: 0 1rem;
+                padding: 0 15px;
             }
 
-            .features-grid,
-            .testimonials-grid,
-            .pricing-grid {
-                grid-template-columns: 1fr;
+            header {
+                padding: 60px 0 80px;
             }
 
-            .pricing-card {
-                padding: 2rem;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero {
-                padding: 6rem 0 3rem;
-            }
-
-            .hero h1 {
+            .hero-content h1 {
                 font-size: 2rem;
             }
 
-            .features,
-            .testimonials,
-            .pricing {
-                padding: 3rem 0;
+            .hero-content p {
+                font-size: 1rem;
             }
 
-            .feature-card,
-            .testimonial,
-            .pricing-card {
-                padding: 1.5rem;
+            .section-title {
+                font-size: 2rem;
             }
+
+            .features, .testimonials, .pricing {
+                padding: 60px 0;
+            }
+
+            .pricing-card.featured {
+                transform: none;
+            }
+
+            .testimonials-grid, .pricing-grid, .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scroll Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--gradient);
+            z-index: 1000;
+            transition: width 0.3s ease;
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <nav class="container">
-            <div class="logo">TaskFlow</div>
-            <ul class="nav-links">
-                <li><a href="#features">Features</a></li>
-                <li><a href="#testimonials">Reviews</a></li>
-                <li><a href="#pricing">Pricing</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <button class="mobile-menu-toggle">☰</button>
-        </nav>
+    <div class="progress-bar"></div>
+
+    <header class="section">
+        <div class="container">
+            <div class="hero-content">
+                <h1>TaskFlow</h1>
+                <p>Organize your tasks like never before. Boost productivity, meet deadlines, and achieve your goals with our intuitive task management platform.</p>
+                <a href="#pricing" class="cta-button">Start Free Trial</a>
+            </div>
+        </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
+    <section class="features section">
         <div class="container">
-            <div class="hero-content fade-in">
-                <h1>Organize Your Life, Amplify Your Productivity</h1>
-                <p>The ultimate task management app that helps teams and individuals stay organized, collaborate seamlessly, and achieve their goals faster than ever.</p>
-                <a href="#" class="btn btn-primary">Get Started Free</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="features" class="features">
-        <div class="container">
-            <div class="fade-in">
-                <h2 class="section-title">Powerful Features</h2>
-                <p class="section-subtitle">Everything you need to manage tasks efficiently and boost your productivity</p>
-            </div>
-            
+            <h2 class="section-title">Powerful Features</h2>
             <div class="features-grid">
-                <div class="feature-card fade-in">
+                <div class="feature-card">
                     <div class="feature-icon">📋</div>
-                    <h3>Smart Task Management</h3>
-                    <p>Organize tasks with intelligent categorization, priority levels, and due date tracking. Never miss a deadline again with our smart notification system.</p>
+                    <h3>Smart Organization</h3>
+                    <p>Automatically categorize and prioritize your tasks with AI-powered organization. Never lose track of important deadlines again.</p>
                 </div>
-                
-                <div class="feature-card fade-in">
-                    <div class="feature-icon">👥</div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Lightning Fast</h3>
+                    <p>Built for speed and efficiency. Add, edit, and complete tasks in milliseconds with our optimized interface and instant sync.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
                     <h3>Team Collaboration</h3>
-                    <p>Work seamlessly with your team through real-time updates, shared workspaces, and instant communication. Perfect for remote and hybrid teams.</p>
-                </div>
-                
-                <div class="feature-card fade-in">
-                    <div class="feature-icon">📊</div>
-                    <h3>Analytics & Insights</h3>
-                    <p>Track your productivity with detailed analytics, progress reports, and performance insights. Make data-driven decisions to optimize your workflow.</p>
+                    <p>Work seamlessly with your team. Share projects, assign tasks, and track progress in real-time with advanced collaboration tools.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials">
+    <section class="testimonials section">
         <div class="container">
-            <div class="fade-in">
-                <h2 class="section-title">What Our Users Say</h2>
-                <p class="section-subtitle">Join thousands of satisfied users who have transformed their productivity</p>
-            </div>
-            
+            <h2 class="section-title">What Our Users Say</h2>
             <div class="testimonials-grid">
-                <div class="testimonial fade-in">
-                    <div class="testimonial-content">
-                        "TaskFlow has completely revolutionized how our team manages projects. The collaboration features are incredible and the interface is so intuitive. We've increased our productivity by 40%!"
-                    </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">TaskFlow completely transformed how I manage my projects. The AI organization feature is a game-changer! I've increased my productivity by 200%.</p>
                     <div class="testimonial-author">
-                        <div class="author-avatar">S</div>
+                        <div class="author-avatar">SM</div>
                         <div class="author-info">
-                            <h4>Sarah Chen</h4>
-                            <p>Project Manager at TechCorp</p>
+                            <h4>Sarah Martinez</h4>
+                            <p>Product Manager, TechCorp</p>
                         </div>
                     </div>
                 </div>
-                
-                <div class="testimonial fade-in">
-                    <div class="testimonial-content">
-                        "As a freelancer, staying organized was always a challenge. TaskFlow's smart categorization and priority system help me focus on what matters most. It's like having a personal assistant!"
-                    </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">The team collaboration features are incredible. We went from scattered emails to a unified workflow. Our project delivery time improved by 40%.</p>
                     <div class="testimonial-author">
-                        <div class="author-avatar">M</div>
+                        <div class="author-avatar">DJ</div>
                         <div class="author-info">
-                            <h4>Michael Rodriguez</h4>
+                            <h4>David Johnson</h4>
+                            <p>CEO, StartupXYZ</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">Simple, intuitive, and powerful. TaskFlow helps me stay organized without the complexity of other tools. It just works perfectly.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">EW</div>
+                        <div class="author-info">
+                            <h4>Emily Wilson</h4>
                             <p>Freelance Designer</p>
                         </div>
                     </div>
                 </div>
-                
-                <div class="testimonial fade-in">
-                    <div class="testimonial-content">
-                        "The analytics feature is a game-changer. Being able to see exactly where my time goes and how productive I am has helped me optimize my workflow tremendously."
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">E</div>
-                        <div class="author-info">
-                            <h4>Emily Johnson</h4>
-                            <p>Marketing Director</p>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
 
-    <!-- Pricing Section -->
-    <section id="pricing" class="pricing">
+    <section class="pricing section" id="pricing">
         <div class="container">
-            <div class="fade-in">
-                <h2 class="section-title">Choose Your Plan</h2>
-                <p class="section-subtitle">Flexible pricing options to suit individuals and teams of all sizes</p>
-            </div>
-            
+            <h2 class="section-title">Choose Your Plan</h2>
             <div class="pricing-grid">
-                <div class="pricing-card fade-in">
-                    <h3>Free</h3>
-                    <div class="price">$0</div>
-                    <div class="price-period">per month</div>
-                    <ul class="features-list">
-                        <li>Up to 10 tasks</li>
-                        <li>Basic task management</li>
+                <div class="pricing-card">
+                    <h3 class="plan-name">Free</h3>
+                    <div class="plan-price">$0<span>/month</span></div>
+                    <ul class="plan-features">
+                        <li>Up to 50 tasks</li>
+                        <li>Basic organization</li>
                         <li>Mobile app access</li>
                         <li>Email support</li>
                     </ul>
-                    <a href="#" class="btn btn-primary">Get Started</a>
+                    <button class="plan-button">Get Started</button>
                 </div>
-                
-                <div class="pricing-card featured fade-in">
-                    <h3>Pro</h3>
-                    <div class="price">$9</div>
-                    <div class="price-period">per month</div>
-                    <ul class="features-list">
+                <div class="pricing-card featured">
+                    <h3 class="plan-name">Pro</h3>
+                    <div class="plan-price">$9<span>/month</span></div>
+                    <ul class="plan-features">
                         <li>Unlimited tasks</li>
+                        <li>AI-powered organization</li>
                         <li>Team collaboration</li>
                         <li>Advanced analytics</li>
                         <li>Priority support</li>
-                        <li>Custom integrations</li>
                     </ul>
-                    <a href="#" class="btn btn-primary">Start Pro Trial</a>
+                    <button class="plan-button">Start Free Trial</button>
                 </div>
-                
-                <div class="pricing-card fade-in">
-                    <h3>Team</h3>
-                    <div class="price">$19</div>
-                    <div class="price-period">per month</div>
-                    <ul class="features-list">
+                <div class="pricing-card">
+                    <h3 class="plan-name">Team</h3>
+                    <div class="plan-price">$19<span>/month</span></div>
+                    <ul class="plan-features">
                         <li>Everything in Pro</li>
                         <li>Up to 25 team members</li>
-                        <li>Advanced security</li>
-                        <li>Custom workflows</li>
+                        <li>Advanced permissions</li>
+                        <li>Custom integrations</li>
                         <li>Dedicated support</li>
                     </ul>
-                    <a href="#" class="btn btn-primary">Contact Sales</a>
+                    <button class="plan-button">Contact Sales</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer id="contact">
+    <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>TaskFlow</h3>
-                    <p style="color: var(--gray-300); margin-bottom: 1rem;">Organize your life, amplify your productivity.</p>
+                    <p>The ultimate task management solution for individuals and teams. Organize, prioritize, and achieve more.</p>
                     <div class="social-links">
                         <a href="#" class="social-link">📘</a>
                         <a href="#" class="social-link">🐦</a>
-                        <a href="#" class="social-link">💼</a>
                         <a href="#" class="social-link">📷</a>
+                        <a href="#" class="social-link">💼</a>
                     </div>
                 </div>
-                
                 <div class="footer-section">
-                    <h3>Product</h3>
-                    <a href="#">Features</a>
-                    <a href="#">Pricing</a>
-                    <a href="#">Updates</a>
-                    <a href="#">Beta</a>
+                    <h3>Contact</h3>
+                    <p>Email: hello@taskflow.com</p>
+                    <p>Phone: +20 1234567890</p>
+                    <p>Address: 123 Tech Street, Smart Village</p>
                 </div>
-                
                 <div class="footer-section">
-                    <h3>Company</h3>
-                    <a href="#">About</a>
-                    <a href="#">Blog</a>
-                    <a href="#">Careers</a>
-                    <a href="#">Press</a>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>Support</h3>
-                    <a href="#">Help Center</a>
-                    <a href="#">Contact Us</a>
-                    <a href="#">Status</a>
-                    <a href="#">Privacy Policy</a>
+                    <h3>Quick Links</h3>
+                    <p><a href="#">Features</a></p>
+                    <p><a href="#">Pricing</a></p>
+                    <p><a href="#">Support</a></p>
+                    <p><a href="#">Privacy Policy</a></p>
+                    <p><a href="#">Terms of Service</a></p>
                 </div>
             </div>
-            
             <div class="footer-bottom">
-                <p>&copy; 2024 TaskFlow. All rights reserved.</p>
+                <p>&copy; 2025 TaskFlow. All rights reserved. Built with ❤️ for productivity.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Mobile menu toggle
-        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
-
-        mobileMenuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-
-        // Scroll animations
+        // Scroll Animation Observer
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -786,106 +642,61 @@
             });
         }, observerOptions);
 
-        // Observe all fade-in elements
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
+        // Observe all sections
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
         });
 
-        // Smooth scrolling for navigation links
+        // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    const headerHeight = document.querySelector('header').offsetHeight;
-                    const targetPosition = target.offsetTop - headerHeight;
-                    
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
                     });
-                    
-                    // Close mobile menu if it's open
-                    navLinks.classList.remove('active');
                 }
             });
         });
 
-        // Add parallax effect to hero section
+        // Progress bar
         window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const heroContent = document.querySelector('.hero-content');
-            if (heroContent) {
-                heroContent.style.transform = `translateY(${scrolled * 0.5}px)`;
-            }
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.body.offsetHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.querySelector('.progress-bar').style.width = scrollPercent + '%';
         });
 
-        // Add hover effects to cards
-        document.querySelectorAll('.feature-card, .testimonial, .pricing-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-10px) scale(1.02)';
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
-            });
-        });
-
-        // Button click animations
-        document.querySelectorAll('.btn').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Create ripple effect
-                const ripple = document.createElement('span');
-                const rect = this.getBoundingClientRect();
-                const size = Math.max(rect.width, rect.height);
-                const x = e.clientX - rect.left - size / 2;
-                const y = e.clientY - rect.top - size / 2;
-                
-                ripple.style.cssText = `
-                    position: absolute;
-                    border-radius: 50%;
-                    background: rgba(255, 255, 255, 0.3);
-                    transform: scale(0);
-                    animation: ripple 0.6s linear;
-                    width: ${size}px;
-                    height: ${size}px;
-                    left: ${x}px;
-                    top: ${y}px;
-                    pointer-events: none;
-                `;
-                
-                this.style.position = 'relative';
-                this.style.overflow = 'hidden';
-                this.appendChild(ripple);
-                
-                setTimeout(() => {
-                    ripple.remove();
-                }, 600);
-            });
-        });
-
-        // Add CSS animation for ripple effect
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes ripple {
-                to {
-                    transform: scale(4);
-                    opacity: 0;
+        // Button interactions
+        document.querySelectorAll('.plan-button, .cta-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                if (this.textContent.includes('Free') || this.textContent.includes('Started')) {
+                    e.preventDefault();
+                    alert('🎉 Welcome to TaskFlow! Your free trial is starting now. Check your email for setup instructions.');
+                } else if (this.textContent.includes('Contact')) {
+                    e.preventDefault();
+                    alert('📞 Thanks for your interest! Our sales team will contact you within 24 hours.');
                 }
-            }
-        `;
-        document.head.appendChild(style);
+            });
+        });
 
-        // Loading animation for the page
+        // Add floating animation to feature cards
+        setInterval(() => {
+            document.querySelectorAll('.feature-card').forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.transform = 'translateY(-5px)';
+                    setTimeout(() => {
+                        card.style.transform = 'translateY(0)';
+                    }, 1000);
+                }, index * 200);
+            });
+        }, 5000);
+
+        // Initial load animation
         window.addEventListener('load', () => {
-            document.body.style.opacity = '0';
-            document.body.style.transition = 'opacity 0.5s ease-in-out';
-            
-            setTimeout(() => {
-                document.body.style.opacity = '1';
-            }, 100);
+            document.querySelector('header').classList.add('visible');
         });
     </script>
 </body>
