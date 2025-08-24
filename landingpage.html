@@ -1,419 +1,803 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>TechPro SaaS Landing</title>
-<style>
-  /* Base Reset and Fonts */
-  *, *::before, *::after {
-    box-sizing: border-box;
-  }
-  body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--bg);
-    color: var(--text);
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-  a {
-    color: var(--primary);
-    text-decoration: none;
-  }
-  img {
-    max-width: 100%;
-    height: auto;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloudSync Pro - Revolutionary Cloud Solutions</title>
+    <meta name="description" content="Transform your business with CloudSync Pro - the most advanced cloud platform for modern enterprises">
+    
+    <style>
+        :root {
+            /* Light theme colors */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-accent: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            --bg-hero: linear-gradient(135deg, #eff6ff 0%, #dbeafe 50%, #bfdbfe 100%);
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-accent: #3b82f6;
+            --border-color: #e2e8f0;
+            --card-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.1);
+            --button-primary: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            --button-secondary: #f1f5f9;
+            --feature-bg: rgba(59, 130, 246, 0.05);
+        }
 
-  /* Theme Variables for Lavender Palette */
-  :root {
-    --primary: #7e57c2; /* Medium lavender */
-    --primary-dark: #5e3a99; /* Darker lavender */
-    --bg: #f8f5fa; /* Very light lavender */
-    --text: #3b2e5a; /* Deep blue-violet */
-    --card-bg: #edeaf8; /* Soft lavender */
-    --card-border: #c4bde8; /* Light lavender border */
-  }
-  .dark {
-    --primary: #b39ddb; /* Light lavender */
-    --primary-dark: #8e7cc3; 
-    --bg: #1c1a2e; /* Very dark lavender */
-    --text: #dcd7ff;
-    --card-bg: #2e2a47; /* Dark muted purple */
-    --card-border: #4b4277;
-  }
+        [data-theme="dark"] {
+            /* Dark theme colors */
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-accent: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+            --bg-hero: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%);
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --text-accent: #60a5fa;
+            --border-color: #334155;
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            --button-primary: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+            --button-secondary: #334155;
+            --feature-bg: rgba(96, 165, 250, 0.1);
+        }
 
-  /* Container */
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem;
-  }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  /* Header / Hero */
-  header {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 80vh;
-    text-align: center;
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-    color: white;
-  }
-  header h1 {
-    font-size: 3rem;
-    margin-bottom: 0.5rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-  }
-  header p {
-    font-size: 1.3rem;
-    max-width: 540px;
-    margin: 0 auto 1.5rem;
-    font-weight: 500;
-  }
-  header button {
-    background-color: white;
-    color: var(--primary);
-    border: none;
-    padding: 0.75rem 2.5rem;
-    font-size: 1.1rem;
-    border-radius: 30px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 3px 6px rgba(126, 87, 194, 0.4);
-  }
-  header button:hover {
-    background-color: #e6e0f8;
-  }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            transition: all 0.3s ease;
+        }
 
-  /* Theme Toggle Button */
-  .theme-toggle {
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    padding: 0.5rem 1.2rem;
-    border-radius: 20px;
-    cursor: pointer;
-    color: var(--text);
-    font-weight: 700;
-    font-size: 0.9rem;
-    box-shadow: 0 1px 3px rgba(126, 87, 194,0.4);
-  }
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
 
-  /* Sections */
-  section {
-    padding: 4rem 0;
-  }
-  h2 {
-    text-align: center;
-    margin-bottom: 2rem;
-    font-weight: 700;
-    color: var(--primary);
-    letter-spacing: 1px;
-  }
+        [data-theme="dark"] .header {
+            background: rgba(15, 23, 42, 0.95);
+        }
 
-  /* Features Grid */
-  .features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
-    gap: 2.5rem;
-  }
-  .feature-card {
-    background: var(--card-bg);
-    padding: 2rem 1.5rem;
-    border-radius: 14px;
-    border: 1px solid var(--card-border);
-    text-align: center;
-    box-shadow: 0px 5px 15px rgba(126, 87, 194, 0.1);
-    transition: transform 0.3s ease;
-  }
-  .feature-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 20px rgba(126, 87, 194, 0.25);
-  }
-  .feature-icon {
-    font-size: 3.8rem;
-    color: var(--primary);
-    margin-bottom: 1rem;
-  }
-  .feature-title {
-    font-weight: 700;
-    font-size: 1.3rem;
-    margin-bottom: 0.75rem;
-    color: var(--primary-dark);
-  }
-  .feature-card p {
-    font-weight: 500;
-    line-height: 1.4;
-    color: var(--text);
-  }
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-  /* Testimonials */
-  .testimonials {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    max-width: 920px;
-    margin: 0 auto;
-  }
-  .testimonial {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 14px;
-    padding: 2rem 2.5rem;
-    box-shadow: 0 3px 12px rgba(126, 87, 194, 0.15);
-    display: flex;
-    gap: 1.5rem;
-    align-items: center;
-    transition: box-shadow 0.3s ease;
-  }
-  .testimonial:hover {
-    box-shadow: 0 8px 24px rgba(126, 87, 194, 0.3);
-  }
-  .testimonial-img {
-    border-radius: 50%;
-    width: 72px;
-    height: 72px;
-    flex-shrink: 0;
-    border: 3px solid var(--primary);
-  }
-  .testimonial-text {
-    font-style: italic;
-    font-weight: 500;
-    color: var(--text);
-  }
-  .testimonial-name {
-    font-weight: 700;
-    margin-top: 0.7rem;
-    color: var(--primary-dark);
-  }
-  .testimonial > div {
-    flex: 1;
-  }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-accent);
+            text-decoration: none;
+        }
 
-  /* Pricing */
-  .pricing-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2.5rem;
-    justify-content: center;
-  }
-  .pricing-card {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 16px;
-    flex: 1 1 300px;
-    max-width: 340px;
-    padding: 2.5rem 2rem;
-    text-align: center;
-    box-shadow: 0 5px 15px rgba(126, 87, 194, 0.12);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: transform 0.3s ease;
-  }
-  .pricing-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 30px rgba(126, 87, 194, 0.28);
-  }
-  .pricing-title {
-    font-weight: 700;
-    font-size: 1.7rem;
-    margin-bottom: 0.75rem;
-    color: var(--primary-dark);
-  }
-  .pricing-price {
-    font-size: 2.5rem;
-    margin-bottom: 1.5rem;
-    font-weight: 700;
-  }
-  .pricing-features {
-    text-align: left;
-    margin-bottom: 2rem;
-    color: var(--text);
-    font-weight: 500;
-  }
-  .pricing-features li {
-    margin-bottom: 0.6rem;
-  }
-  .pricing-button {
-    color: white;
-    background-color: var(--primary);
-    border: none;
-    padding: 0.85rem;
-    border-radius: 30px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 5px 15px rgba(126, 87, 194, 0.3);
-  }
-  .pricing-button:hover {
-    background-color: var(--primary-dark);
-    box-shadow: 0 8px 24px rgba(94, 58, 153, 0.5);
-  }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
 
-  /* Final CTA */
-  .cta-section {
-    text-align: center;
-    padding: 3.5rem 1rem;
-    background-color: var(--primary);
-    color: white;
-    border-radius: 12px;
-    box-shadow: 0 6px 20px rgba(126, 87, 194, 0.35);
-  }
-  .cta-section p {
-    font-size: 1.35rem;
-    margin-bottom: 1.2rem;
-    font-weight: 600;
-    letter-spacing: 0.8px;
-  }
-  .cta-section button {
-    background-color: white;
-    color: var(--primary);
-    padding: 0.85rem 2.3rem;
-    border: none;
-    border-radius: 30px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    font-weight: 700;
-    letter-spacing: 0.8px;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 4px 15px rgba(126, 87, 194, 0.4);
-  }
-  .cta-section button:hover {
-    background-color: #d8d0f9;
-  }
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
 
-  /* Responsive tweaks */
-  @media (max-width: 600px) {
-    header h1 {
-      font-size: 2.4rem;
-    }
-    .pricing-grid {
-      flex-direction: column;
-      align-items: center;
-    }
-    .testimonial {
-      flex-direction: column;
-      text-align: center;
-      padding: 1.5rem 1rem;
-    }
-    .testimonial-text {
-      margin-top: 1rem;
-    }
-  }
-</style>
+        .nav-links a:hover {
+            color: var(--text-accent);
+        }
+
+        .theme-toggle {
+            background: var(--button-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            padding: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 60px;
+            height: 32px;
+            position: relative;
+        }
+
+        .theme-toggle::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 24px;
+            height: 24px;
+            background: var(--text-accent);
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        [data-theme="dark"] .theme-toggle::before {
+            transform: translateX(28px);
+        }
+
+        /* Main content */
+        .main {
+            margin-top: 80px;
+        }
+
+        .section {
+            padding: 5rem 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--bg-hero);
+            text-align: center;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(59,130,246,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: var(--bg-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--button-primary);
+            color: white;
+            box-shadow: var(--card-shadow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px -5px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--button-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--text-accent);
+            color: white;
+        }
+
+        /* Features Section */
+        .features {
+            background: var(--bg-secondary);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--bg-primary);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--feature-bg);
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+        }
+
+        /* Testimonials Section */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: var(--bg-primary);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--bg-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .author-info h4 {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .author-info p {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            background: var(--bg-secondary);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: var(--bg-primary);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
+            text-align: center;
+            position: relative;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--text-accent);
+            transform: scale(1.05);
+        }
+
+        .pricing-card.featured::before {
+            content: 'Most Popular';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--button-primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .pricing-price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text-accent);
+            margin-bottom: 1rem;
+        }
+
+        .pricing-price span {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features li {
+            padding: 0.5rem 0;
+            color: var(--text-secondary);
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            color: var(--text-accent);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: var(--bg-accent);
+            color: white;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .cta p {
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-secondary);
+            padding: 3rem 2rem 1rem;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer p {
+            color: var(--text-secondary);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section {
+                padding: 3rem 1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .pricing-card.featured {
+                transform: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav {
+                padding: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .features-grid,
+            .testimonials-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta h2 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
 </head>
 <body>
+    <header class="header">
+        <nav class="nav">
+            <a href="#" class="logo">☁️ CloudSync Pro</a>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+        </nav>
+    </header>
 
-<button class="theme-toggle" id="themeToggle">🌙</button>
+    <main class="main">
+        <!-- Hero Section -->
+        <section class="hero section">
+            <div class="container">
+                <div class="hero-content fade-in">
+                    <h1>Revolutionary Cloud Solutions for Modern Enterprises</h1>
+                    <p>Transform your business with CloudSync Pro - the most advanced cloud platform that scales with your ambitions. Secure, fast, and infinitely scalable.</p>
+                    <div class="cta-buttons">
+                        <a href="#pricing" class="btn btn-primary">Start Free Trial</a>
+                        <a href="#features" class="btn btn-secondary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<header>
-  <h1>TechPro SaaS</h1>
-  <p>Your all-in-one solution for seamless workflow management.</p>
-  <button>Get Started</button>
-</header>
+        <!-- Features Section -->
+        <section id="features" class="features section">
+            <div class="container">
+                <h2 class="section-title">Powerful Features</h2>
+                <p class="section-subtitle">Everything you need to scale your business in the cloud, with enterprise-grade security and performance.</p>
+                
+                <div class="features-grid">
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">⚡</div>
+                        <h3>Lightning Fast</h3>
+                        <p>Ultra-high performance with global CDN and edge computing. Your applications load instantly worldwide.</p>
+                    </div>
+                    
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">🔒</div>
+                        <h3>Enterprise Security</h3>
+                        <p>Bank-level encryption, SOC 2 compliance, and advanced threat protection keep your data safe.</p>
+                    </div>
+                    
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">📈</div>
+                        <h3>Auto Scaling</h3>
+                        <p>Automatically scale resources up or down based on demand. Pay only for what you use.</p>
+                    </div>
+                    
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">🌐</div>
+                        <h3>Global Network</h3>
+                        <p>Deploy across 150+ edge locations worldwide for minimal latency and maximum availability.</p>
+                    </div>
+                    
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">🔄</div>
+                        <h3>Real-time Sync</h3>
+                        <p>Keep your data synchronized across all platforms and devices in real-time.</p>
+                    </div>
+                    
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">📊</div>
+                        <h3>Advanced Analytics</h3>
+                        <p>Deep insights into your applications with comprehensive monitoring and reporting tools.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<section id="features" class="container">
-  <h2>Features</h2>
-  <div class="features-grid">
-    <div class="feature-card">
-      <div class="feature-icon" aria-label="Rocket emoji">🚀</div>
-      <div class="feature-title">Fast Performance</div>
-      <p>Experience lightning-fast load times and smooth interactions.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon" aria-label="Lock emoji">🔒</div>
-      <div class="feature-title">Top Security</div>
-      <p>Protect your data with enterprise-grade encryption and security.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon" aria-label="Mobile phone emoji">📱</div>
-      <div class="feature-title">Mobile Friendly</div>
-      <p>Access your dashboard from any device, anytime, anywhere.</p>
-    </div>
-  </div>
-</section>
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="section">
+            <div class="container">
+                <h2 class="section-title">What Our Customers Say</h2>
+                <p class="section-subtitle">Join thousands of companies that trust CloudSync Pro for their mission-critical applications.</p>
+                
+                <div class="testimonials-grid">
+                    <div class="testimonial-card fade-in">
+                        <p class="testimonial-text">"CloudSync Pro transformed our infrastructure. We reduced costs by 40% while improving performance dramatically. The auto-scaling feature is a game-changer."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">JS</div>
+                            <div class="author-info">
+                                <h4>John Smith</h4>
+                                <p>CTO, TechStart Inc.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card fade-in">
+                        <p class="testimonial-text">"The security features are outstanding. We passed our SOC 2 audit with flying colors thanks to CloudSync Pro's comprehensive compliance tools."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">MJ</div>
+                            <div class="author-info">
+                                <h4>Maria Rodriguez</h4>
+                                <p>CISO, SecureBank</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card fade-in">
+                        <p class="testimonial-text">"Migration was seamless and the support team is exceptional. Our apps are faster than ever and our customers love the improved experience."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">DL</div>
+                            <div class="author-info">
+                                <h4>David Lee</h4>
+                                <p>Lead Developer, AppCorp</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<section id="testimonials" class="container">
-  <h2>What Our Users Say</h2>
-  <div class="testimonials">
-    <div class="testimonial">
-      <img class="testimonial-img" src="https://i.pravatar.cc/72?img=32" alt="Alex P. photo" />
-      <div>
-        <p class="testimonial-text">"TechPro transformed our team's productivity. Highly recommend!"</p>
-        <div class="testimonial-name">- Alex P.</div>
-      </div>
-    </div>
-    <div class="testimonial">
-      <img class="testimonial-img" src="https://i.pravatar.cc/72?img=15" alt="Maya S. photo" />
-      <div>
-        <p class="testimonial-text">"A seamless experience with outstanding support."</p>
-        <div class="testimonial-name">- Maya S.</div>
-      </div>
-    </div>
-  </div>
-</section>
+        <!-- Pricing Section -->
+        <section id="pricing" class="pricing section">
+            <div class="container">
+                <h2 class="section-title">Simple, Transparent Pricing</h2>
+                <p class="section-subtitle">Choose the perfect plan for your business. Scale up or down anytime.</p>
+                
+                <div class="pricing-grid">
+                    <div class="pricing-card fade-in">
+                        <h3>Starter</h3>
+                        <div class="pricing-price">$29<span>/month</span></div>
+                        <ul class="pricing-features">
+                            <li>Up to 10GB storage</li>
+                            <li>5 team members</li>
+                            <li>Basic support</li>
+                            <li>99.9% uptime SLA</li>
+                            <li>SSL certificates</li>
+                        </ul>
+                        <a href="#" class="btn btn-secondary">Get Started</a>
+                    </div>
+                    
+                    <div class="pricing-card featured fade-in">
+                        <h3>Professional</h3>
+                        <div class="pricing-price">$79<span>/month</span></div>
+                        <ul class="pricing-features">
+                            <li>Up to 100GB storage</li>
+                            <li>25 team members</li>
+                            <li>Priority support</li>
+                            <li>99.99% uptime SLA</li>
+                            <li>Advanced security</li>
+                            <li>Custom integrations</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary">Get Started</a>
+                    </div>
+                    
+                    <div class="pricing-card fade-in">
+                        <h3>Enterprise</h3>
+                        <div class="pricing-price">$199<span>/month</span></div>
+                        <ul class="pricing-features">
+                            <li>Unlimited storage</li>
+                            <li>Unlimited team members</li>
+                            <li>24/7 dedicated support</li>
+                            <li>99.999% uptime SLA</li>
+                            <li>Enterprise security</li>
+                            <li>White-label options</li>
+                        </ul>
+                        <a href="#" class="btn btn-secondary">Contact Sales</a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<section id="pricing" class="container">
-  <h2>Pricing</h2>
-  <div class="pricing-grid">
-    <div class="pricing-card">
-      <div class="pricing-title">Basic</div>
-      <div class="pricing-price">$9/month</div>
-      <ul class="pricing-features">
-        <li>Up to 3 projects</li>
-        <li>Email support</li>
-        <li>Basic analytics</li>
-      </ul>
-      <button class="pricing-button">Choose Basic</button>
-    </div>
-    <div class="pricing-card">
-      <div class="pricing-title">Pro</div>
-      <div class="pricing-price">$29/month</div>
-      <ul class="pricing-features">
-        <li>Unlimited projects</li>
-        <li>Priority support</li>
-        <li>Advanced analytics</li>
-      </ul>
-      <button class="pricing-button">Choose Pro</button>
-    </div>
-    <div class="pricing-card">
-      <div class="pricing-title">Enterprise</div>
-      <div class="pricing-price">Custom Pricing</div>
-      <ul class="pricing-features">
-        <li>Dedicated manager</li>
-        <li>Custom integrations</li>
-        <li>24/7 support</li>
-      </ul>
-      <button class="pricing-button">Contact Us</button>
-    </div>
-  </div>
-</section>
+        <!-- CTA Section -->
+        <section class="cta section">
+            <div class="container">
+                <h2>Ready to Transform Your Business?</h2>
+                <p>Join thousands of companies already using CloudSync Pro to scale their operations.</p>
+                <a href="#pricing" class="btn btn-secondary">Start Your Free Trial Today</a>
+            </div>
+        </section>
+    </main>
 
-<section class="cta-section">
-  <p>Ready to streamline your workflow? Start your free trial today!</p>
-  <button>Start Free Trial</button>
-</section>
+    <footer id="contact" class="footer">
+        <div class="container">
+            <p>&copy; 2024 CloudSync Pro. All rights reserved. | Privacy Policy | Terms of Service | Contact: hello@cloudsyncpro.com</p>
+        </div>
+    </footer>
 
-<script>
-  // Theme toggle logic
-  const toggleButton = document.getElementById('themeToggle');
-  toggleButton.addEventListener('click', () => {
-    document.body.classList.toggle('dark');
-    if (document.body.classList.contains('dark')) {
-      toggleButton.textContent = '☀️';
-    } else {
-      toggleButton.textContent = '🌙';
-    }
-  });
-</script>
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
 
+        // Check for saved theme preference or default to light
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        body.setAttribute('data-theme', currentTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            observer.observe(el);
+        });
+
+        // Header scroll effect
+        let lastScrollTop = 0;
+        const header = document.querySelector('.header');
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                // Scrolling down
+                header.style.transform = 'translateY(-100%)';
+            } else {
+                // Scrolling up
+                header.style.transform = 'translateY(0)';
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+
+        // Add loading animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '1';
+        });
+
+        // Initialize page
+        document.body.style.opacity = '0';
+        document.body.style.transition = 'opacity 0.3s ease-in';
+    </script>
 </body>
 </html>
