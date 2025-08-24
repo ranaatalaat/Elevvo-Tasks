@@ -1,353 +1,998 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Lavender Blog</title>
-<style>
-  /* Reset */
-  * {
-    box-sizing: border-box;
-  }
-  body {
-    margin: 0; 
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f3f0fa;
-    color: #3a2c5a;
-  }
-  header {
-    background-color: #7965c1;
-    color: white;
-    padding: 1.5rem 2rem;
-    text-align: center;
-    font-weight: 700;
-    font-size: 2rem;
-    letter-spacing: 1.05px;
-  }
-  main {
-    max-width: 1100px;
-    margin: 2rem auto;
-    padding: 0 1rem;
-  }
-  /* Filters Section */
-  .filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    justify-content: center;
-  }
-  select, input[type="text"] {
-    padding: 0.6rem 1rem;
-    font-size: 1rem;
-    border: 2px solid #7965c1;
-    border-radius: 8px;
-    background: #e7e1f6;
-    color: #3a2c5a;
-    outline-offset: 2px;
-    transition: border-color 0.25s ease;
-  }
-  select:hover, input[type="text"]:hover,
-  select:focus, input[type="text"]:focus {
-    border-color: #9c84d7;
-    background: #f0eafc;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rana's Blog - Tech, Travel & Food Stories</title>
+    <meta name="description" content="Join Rana on her journey through technology, travel adventures, and delicious food experiences.">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  /* Posts grid */
-  .posts-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(280px,1fr));
-    gap: 1.8rem;
-  }
-  
-  /* Post Card */
-  .post-card {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 3px 8px rgb(121 101 193 / 0.3);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    transition: box-shadow 0.3s ease;
-  }
-  .post-card:hover {
-    box-shadow: 0 6px 16px rgb(121 101 193 / 0.5);
-  }
-  .post-image {
-    width: 100%;
-    height: 160px;
-    object-fit: cover;
-  }
-  .post-content {
-    padding: 1rem 1.2rem 1.5rem;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-  }
-  .post-title {
-    font-size: 1.2rem;
-    margin: 0 0 0.5rem;
-    font-weight: 700;
-    color: #5e4fc2;
-  }
-  .post-desc {
-    flex-grow: 1;
-    font-size: 0.95rem;
-    color: #4a3a8e;
-    margin-bottom: 0.8rem;
-  }
-  .post-date {
-    font-size: 0.85rem;
-    color: #917ed6;
-    font-weight: 600;
-    align-self: flex-end;
-  }
+        :root {
+            /* Sophisticated Rose & Teal Palette */
+            --background: hsl(350, 20%, 98%);
+            --foreground: hsl(240, 15%, 15%);
+            --card: hsl(0, 0%, 100%);
+            --card-foreground: hsl(240, 15%, 15%);
+            --primary: hsl(340, 75%, 55%);
+            --primary-foreground: hsl(0, 0%, 98%);
+            --primary-hover: hsl(340, 85%, 48%);
+            --secondary: hsl(180, 50%, 45%);
+            --secondary-foreground: hsl(0, 0%, 98%);
+            --secondary-hover: hsl(180, 60%, 38%);
+            --accent: hsl(35, 80%, 60%);
+            --accent-foreground: hsl(240, 15%, 15%);
+            --muted: hsl(350, 15%, 95%);
+            --muted-foreground: hsl(240, 10%, 55%);
+            --border: hsl(340, 20%, 90%);
+            --input: hsl(340, 15%, 92%);
+            --ring: hsl(340, 75%, 55%);
 
-  /* Pagination */
-  .pagination {
-    margin: 2.5rem 0 3rem;
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-  }
-  .pagination button {
-    background: #7965c1;
-    color: white;
-    border: none;
-    padding: 0.6rem 1.2rem;
-    border-radius: 6px;
-    font-weight: 600;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-  }
-  .pagination button[disabled] {
-    background: #a89de3;
-    cursor: default;
-  }
-  .pagination button:hover:not([disabled]) {
-    background: #5e4fc2;
-  }
+            /* Beautiful Gradients */
+            --gradient-primary: linear-gradient(135deg, hsl(340, 75%, 55%) 0%, hsl(320, 70%, 65%) 100%);
+            --gradient-secondary: linear-gradient(135deg, hsl(180, 50%, 45%) 0%, hsl(200, 55%, 50%) 100%);
+            --gradient-hero: linear-gradient(135deg, hsl(350, 20%, 98%) 0%, hsl(340, 30%, 96%) 50%, hsl(320, 25%, 94%) 100%);
+            --gradient-card: linear-gradient(145deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%);
 
-  /* Responsive tweaks */
-  @media (max-width: 480px) {
-    .post-image {
-      height: 120px;
-    }
-    header {
-      font-size: 1.5rem;
-      padding: 1rem;
-    }
-  }
-</style>
+            /* Elegant Shadows */
+            --shadow-soft: 0 4px 20px rgba(236, 72, 153, 0.1);
+            --shadow-medium: 0 8px 30px rgba(236, 72, 153, 0.15);
+            --shadow-strong: 0 20px 60px rgba(236, 72, 153, 0.2);
+            --shadow-glow: 0 0 40px rgba(236, 72, 153, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--gradient-hero);
+            color: var(--foreground);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header Styles */
+        .header {
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80') center/cover;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,250,248,0.95), rgba(255,250,248,0.8), rgba(255,250,248,0.95));
+        }
+
+        .nav {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-brand h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--foreground);
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links i {
+            width: 20px;
+            height: 20px;
+            color: var(--muted-foreground);
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .social-links i:hover {
+            color: var(--primary);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            padding: 4rem 0 6rem;
+            max-width: 600px;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--muted-foreground);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        /* Button Styles */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.75rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: var(--primary-foreground);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .btn-secondary {
+            background: var(--gradient-secondary);
+            color: var(--secondary-foreground);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        /* Main Content */
+        .main {
+            padding: 4rem 0;
+        }
+
+        /* Search and Filter */
+        .filters {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            align-items: center;
+        }
+
+        .search-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 2px solid var(--border);
+            border-radius: 1rem;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--ring);
+            box-shadow: 0 0 0 4px rgba(236, 72, 153, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted-foreground);
+        }
+
+        .clear-btn {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--muted-foreground);
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .clear-btn:hover {
+            color: var(--foreground);
+        }
+
+        .category-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+        }
+
+        .category-pill {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 2rem;
+            background: var(--muted);
+            color: var(--muted-foreground);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .category-pill.active {
+            background: var(--gradient-primary);
+            color: var(--primary-foreground);
+            border-color: var(--primary);
+            transform: scale(1.05);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .category-pill:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .results-info {
+            text-align: center;
+            color: var(--muted-foreground);
+            margin-bottom: 2rem;
+        }
+
+        /* Blog Grid */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .blog-card {
+            background: var(--gradient-card);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--shadow-strong);
+        }
+
+        .card-image {
+            position: relative;
+            overflow: hidden;
+            height: 200px;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .blog-card:hover .card-image img {
+            transform: scale(1.1);
+        }
+
+        .card-category {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+            margin-bottom: 0.75rem;
+        }
+
+        .card-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+            transition: color 0.3s ease;
+        }
+
+        .blog-card:hover .card-title {
+            color: var(--primary);
+        }
+
+        .card-description {
+            color: var(--muted-foreground);
+            font-size: 0.875rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            font-weight: 500;
+            font-size: 0.875rem;
+            text-decoration: none;
+            transition: gap 0.3s ease;
+        }
+
+        .blog-card:hover .read-more {
+            gap: 0.75rem;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .page-btn {
+            padding: 0.5rem 0.75rem;
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--card-foreground);
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.875rem;
+        }
+
+        .page-btn:hover:not(:disabled) {
+            background: var(--accent);
+            color: var(--accent-foreground);
+        }
+
+        .page-btn.active {
+            background: var(--gradient-primary);
+            color: var(--primary-foreground);
+            border-color: var(--primary);
+        }
+
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .no-results h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .no-results p {
+            color: var(--muted-foreground);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(0, 0, 0, 0.05);
+            border-top: 1px solid var(--border);
+            padding: 3rem 0;
+            text-align: center;
+            margin-top: 5rem;
+        }
+
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .footer h3 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer p {
+            color: var(--muted-foreground);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-social i {
+            width: 20px;
+            height: 20px;
+            color: var(--muted-foreground);
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .footer-social i:hover {
+            color: var(--primary);
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+
+            .filters {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+
+            .hero-title {
+                font-size: 4rem;
+            }
+
+            .hero-content {
+                padding: 6rem 0 8rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Header -->
+    <header class="header">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        
+        <div class="container">
+            <!-- Navigation -->
+            <nav class="nav">
+                <div class="nav-brand">
+                    <i data-lucide="heart" style="width: 32px; height: 32px; color: var(--primary); fill: currentColor;"></i>
+                    <h1>Rana's Blog</h1>
+                </div>
+                
+                <div class="nav-links">
+                    <a href="#">Home</a>
+                    <a href="#">About</a>
+                    <a href="#">Contact</a>
+                    <div class="social-links">
+                        <i data-lucide="instagram"></i>
+                        <i data-lucide="twitter"></i>
+                        <i data-lucide="mail"></i>
+                    </div>
+                </div>
+                
+                <button class="menu-btn" style="display: block;">
+                    <i data-lucide="menu" style="width: 24px; height: 24px;"></i>
+                </button>
+            </nav>
+            
+            <!-- Hero Content -->
+            <div class="hero-content fade-in">
+                <h2 class="hero-title">
+                    Welcome to My
+                    <span style="color: var(--primary);">Beautiful</span>
+                    World
+                </h2>
+                <p class="hero-subtitle fade-in stagger-1">
+                    Discover stories about technology, travel adventures, and delicious food experiences. 
+                    Join me on this journey of creativity, inspiration, and authentic living.
+                </p>
+                <div class="hero-buttons fade-in stagger-2">
+                    <button class="btn btn-primary">Explore My Stories</button>
+                    <button class="btn btn-secondary">Subscribe to Newsletter</button>
+                </div>
+            </div>
+        </div>
+    </header>
 
-<header>
-  Lavender Blog
-</header>
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Search and Filter Section -->
+            <div class="filters fade-in stagger-3">
+                <div class="search-container">
+                    <i data-lucide="search" class="search-icon" style="width: 20px; height: 20px;"></i>
+                    <input type="text" id="search-input" class="search-input" placeholder="Search blog posts...">
+                    <button id="clear-search" class="clear-btn" style="display: none;">
+                        <i data-lucide="x" style="width: 20px; height: 20px;"></i>
+                    </button>
+                </div>
+                
+                <div class="category-filters" id="category-filters">
+                    <button class="category-pill active" data-category="All">All Posts</button>
+                    <button class="category-pill" data-category="Tech">Tech</button>
+                    <button class="category-pill" data-category="Travel">Travel</button>
+                    <button class="category-pill" data-category="Food">Food</button>
+                </div>
+            </div>
+            
+            <!-- Results Info -->
+            <div class="results-info" id="results-info"></div>
 
-<main>
-  <section class="filters" aria-label="Blog post filters">
-    <select id="categoryFilter" aria-label="Filter posts by category">
-      <option value="all">All Categories</option>
-      <option value="Tech">Tech</option>
-      <option value="Travel">Travel</option>
-      <option value="Food">Food</option>
-    </select>
+            <!-- Blog Posts Grid -->
+            <div class="blog-grid" id="blog-grid"></div>
 
-    <input type="text" id="searchInput" placeholder="Search posts by title..." aria-label="Search posts by title" />
-  </section>
+            <!-- Pagination -->
+            <div class="pagination" id="pagination"></div>
+        </div>
+    </main>
 
-  <section class="posts-grid" id="postsGrid" aria-live="polite" aria-label="Blog posts">
-    <!-- Posts inserted with JS -->
-  </section>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <h3>
+                    <i data-lucide="heart" style="width: 24px; height: 24px; color: var(--primary); fill: currentColor;"></i>
+                    Rana's Blog
+                </h3>
+                <p>Sharing stories about tech, travel, and food with a touch of elegance and authenticity.</p>
+                <div class="footer-social">
+                    <i data-lucide="instagram"></i>
+                    <i data-lucide="twitter"></i>
+                    <i data-lucide="mail"></i>
+                </div>
+                <p style="font-size: 0.875rem;">© 2025 Rana's Blog. Made with love and passion.</p>
+            </div>
+        </div>
+    </footer>
 
-  <section class="pagination" aria-label="Pagination controls">
-    <button id="prevPage" aria-label="Previous page" disabled>&laquo; Prev</button>
-    <button id="nextPage" aria-label="Next page" disabled>Next &raquo;</button>
-  </section>
-</main>
+    <script>
+        // Blog data
+        const blogPosts = [
+            {
+                id: 1,
+                title: "Building My Dream Workspace: A Tech Girl's Guide to Productivity",
+                description: "Discover how I created the perfect home office setup that balances aesthetics with functionality. From rose gold accessories to powerful tech.",
+                image: "https://images.unsplash.com/photo-1586953208448-b95a79798f07?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                category: "Tech",
+                date: "Dec 20, 2024",
+                author: "Rana",
+                readTime: "5 min"
+            },
+            {
+                id: 2,
+                title: "Island Hopping in the Maldives: A Solo Traveler's Paradise",
+                description: "My incredible journey through crystal-clear waters, overwater bungalows, and breathtaking sunsets in the most romantic destination on earth.",
+                image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                category: "Travel",
+                date: "Dec 18, 2024",
+                author: "Rana",
+                readTime: "8 min"
+            },
+            {
+                id: 3,
+                title: "Aesthetic Brunch Spots That Will Make Your Instagram Shine",
+                description: "A curated list of the most photogenic brunch locations in the city, complete with the perfect lighting and dreamy backgrounds.",
+                image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                category: "Food",
+                date: "Dec 15, 2024",
+                author: "Rana",
+                readTime: "6 min"
+            },
+            {
+                id: 4,
+                title: "The Ultimate Guide to Rose Gold Tech Accessories",
+                description: "Elevate your tech game with these stunning rose gold accessories that prove technology can be both powerful and beautiful.",
+                image: "https://images.unsplash.com/photo-1484704849700-f032a568e944?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2126&q=80",
+                category: "Tech",
+                date: "Jun 12, 2025",
+                author: "Rana",
+                readTime: "4 min"
+            },
+            {
+                id: 5,
+                title: "European Summer: My 30-Day Backpacking Adventure",
+                description: "From the romantic streets of Paris to the sunny beaches of Santorini, follow my month-long European adventure filled with culture and discovery.",
+                image: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2035&q=80",
+                category: "Travel",
+                date: "Jul 10, 2025",
+                author: "Rana",
+                readTime: "12 min"
+            },
+            {
+                id: 6,
+                title: "Healthy Rainbow Bowls That Taste Like Heaven",
+                description: "Colorful, nutritious, and absolutely delicious smoothie bowls that will brighten your morning and fuel your day with natural energy.",
+                image: "https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2064&q=80",
+                category: "Food",
+                date: "Aug 8, 2025",
+                author: "Rana",
+                readTime: "7 min"
+            },
+            {
+                id: 7,
+                title: "Coding in Style: My Journey as a Female Developer",
+                description: "Breaking barriers in tech while maintaining my feminine style. Here's how I navigate the tech world with confidence and authenticity.",
+                image: "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80",
+                category: "Tech",
+                date: "Dec 5, 2024",
+                author: "Rana",
+                readTime: "9 min"
+            },
+            {
+                id: 8,
+                title: "Tokyo Street Food: A Culinary Adventure Guide",
+                description: "Dive into Tokyo's incredible street food scene with my comprehensive guide to the best vendors, hidden gems, and must-try dishes.",
+                image: "https://images.unsplash.com/photo-1554978991-33ef7f31d658?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                category: "Food",
+                date: "Dec 3, 2024",
+                author: "Rana",
+                readTime: "10 min"
+            }
+        ];
 
-<script>
-  // Sample blog posts data
-  const posts = [
-    {
-      id: 1,
-      title: "Exploring the Latest in AI Technology",
-      category: "Tech",
-      image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      description: "Dive into the world of artificial intelligence and see how AI is reshaping industries.",
-      date: "2025-08-18"
-    },
-    {
-      id: 2,
-      title: "Top 10 Hidden Travel Gems in Europe",
-      category: "Travel",
-      image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      description: "Discover lesser-known but breathtaking travel destinations spread across Europe.",
-      date: "2025-07-22"
-    },
-    {
-      id: 3,
-      title: "Cooking with Lavender: Recipes and Tips",
-      category: "Food",
-      image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      description: "Add a hint of lavender to your dishes and desserts with these easy recipes.",
-      date: "2025-08-10"
-    },
-    {
-      id: 4,
-      title: "Smart Home Gadgets Worth Investing In",
-      category: "Tech",
-      image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      description: "A round-up of smart home devices that'll simplify your life.",
-      date: "2025-07-30"
-    },
-    {
-      id: 5,
-      title: "A Foodie's Guide to Street Food Around the World",
-      category: "Food",
-      image: "https://images.squarespace-cdn.com/content/v1/583e0b94d1758e46ff39161c/1536785956546-GE5PNGOGTC7RFQXT1N8B/Luxium-Creative-Arizona-Phoenix-Food-Photographer-Photography-Korean-Street-Food-Justin-Park-Drunken-Tiger-Mesa-8059.jpg?format=1000w",
-      description: "Explore popular street foods that you must try when traveling.",
-      date: "2025-08-17"
-    },
-    {
-      id: 6,
-      title: "Backpacking Through Southeast Asia",
-      category: "Travel",
-      image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      description: "Tips and advice for a budget-friendly backpacking trip.",
-      date: "2025-06-15"
-    },
-    {
-      id: 7,
-      title: "Understanding Quantum Computing",
-      category: "Tech",
-      image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      description: "An introduction to the basics of quantum computing and its potential.",
-      date: "2025-05-05"
-    },
-    {
-      id: 8,
-      title: "Mediterranean Diet: Healthy and Delicious",
-      category: "Food",
-      image: "https://images.unsplash.com/photo-1468071174046-657d9d351a40?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      description: "How to embrace the Mediterranean diet for better health and flavor.",
-      date: "2025-07-01"
-    },
-    {
-      id: 9,
-      title: "Exploring Japan's Cherry Blossom Season",
-      category: "Travel",
-      image: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      description: "A guide to experiencing the stunning sakura bloom in Japan.",
-      date: "2025-03-28"
-    },
-    {
-      id: 10,
-      title: "Building Progressive Web Apps with Modern Tools",
-      category: "Tech",
-      image: "https://images.unsplash.com/photo-1517433456452-f9633a875f6f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      description: "Create fast, reliable PWAs using the latest JavaScript frameworks and tools.",
-      date: "2025-08-12"
-    }
-  ];
+        // State management
+        let currentPage = 1;
+        let activeCategory = 'All';
+        let searchTerm = '';
+        const postsPerPage = 6;
 
-  const POSTS_PER_PAGE = 3;
+        // DOM elements
+        const searchInput = document.getElementById('search-input');
+        const clearButton = document.getElementById('clear-search');
+        const categoryFilters = document.getElementById('category-filters');
+        const blogGrid = document.getElementById('blog-grid');
+        const pagination = document.getElementById('pagination');
+        const resultsInfo = document.getElementById('results-info');
 
-  let currentCategory = "all";
-  let currentSearch = "";
-  let currentPage = 1;
+        // Initialize Lucide icons
+        lucide.createIcons();
 
-  const categorySelect = document.getElementById('categoryFilter');
-  const searchInput = document.getElementById('searchInput');
-  const postsGrid = document.getElementById('postsGrid');
-  const prevPageBtn = document.getElementById('prevPage');
-  const nextPageBtn = document.getElementById('nextPage');
+        // Filter posts based on search and category
+        function getFilteredPosts() {
+            return blogPosts.filter(post => {
+                const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                    post.description.toLowerCase().includes(searchTerm.toLowerCase());
+                const matchesCategory = activeCategory === 'All' || post.category === activeCategory;
+                return matchesSearch && matchesCategory;
+            });
+        }
 
-  function compareDatesDesc(a, b) {
-    return new Date(b.date) - new Date(a.date);
-  }
+        // Paginate posts
+        function getPaginatedPosts(posts) {
+            const startIndex = (currentPage - 1) * postsPerPage;
+            return posts.slice(startIndex, startIndex + postsPerPage);
+        }
 
-  // Filter posts by category and search
-  function getFilteredPosts() {
-    return posts
-      .filter(post => currentCategory === 'all' || post.category === currentCategory)
-      .filter(post => post.title.toLowerCase().includes(currentSearch.toLowerCase()))
-      .sort(compareDatesDesc);
-  }
+        // Render blog cards
+        function renderBlogCards(posts) {
+            if (posts.length === 0) {
+                blogGrid.innerHTML = `
+                    <div class="no-results" style="grid-column: 1 / -1;">
+                        <i data-lucide="user" style="width: 64px; height: 64px; color: var(--muted-foreground); margin: 0 auto 1rem;"></i>
+                        <h3>No posts found</h3>
+                        <p>Try adjusting your search terms or category filter to find what you're looking for.</p>
+                        <button class="btn btn-primary" onclick="resetFilters()">Reset Filters</button>
+                    </div>
+                `;
+                lucide.createIcons();
+                return;
+            }
 
-  function renderPosts() {
-    const filteredPosts = getFilteredPosts();
-    const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
-    if(currentPage > totalPages) currentPage = totalPages || 1;
+            blogGrid.innerHTML = posts.map((post, index) => `
+                <article class="blog-card fade-in stagger-${Math.min(index + 1, 4)}">
+                    <div class="card-image">
+                        <img src="${post.image}" alt="${post.title}">
+                        <div class="card-category">${post.category}</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-meta">
+                            <span>
+                                <i data-lucide="calendar" style="width: 16px; height: 16px;"></i>
+                                ${post.date}
+                            </span>
+                            <span>
+                                <i data-lucide="user" style="width: 16px; height: 16px;"></i>
+                                ${post.author}
+                            </span>
+                            <span>${post.readTime} read</span>
+                        </div>
+                        <h3 class="card-title">${post.title}</h3>
+                        <p class="card-description">${post.description}</p>
+                        <a href="#" class="read-more">
+                            Read More
+                            <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+                        </a>
+                    </div>
+                </article>
+            `).join('');
+            
+            lucide.createIcons();
+        }
 
-    const start = (currentPage - 1) * POSTS_PER_PAGE;
-    const end = start + POSTS_PER_PAGE;
-    const postsToShow = filteredPosts.slice(start, end);
+        // Render pagination
+        function renderPagination(totalPosts) {
+            const totalPages = Math.ceil(totalPosts / postsPerPage);
+            
+            if (totalPages <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
 
-    // Clear current posts
-    postsGrid.innerHTML = '';
+            let paginationHTML = `
+                <button class="page-btn" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>
+                    <i data-lucide="chevron-left" style="width: 16px; height: 16px;"></i>
+                    Previous
+                </button>
+            `;
 
-    if (postsToShow.length === 0) {
-      postsGrid.innerHTML = `<p style="grid-column: 1/-1; text-align:center; color:#6b5ea8; font-size:1.2rem;">No posts found.</p>`;
-    } else {
-      for (const post of postsToShow) {
-        const postEl = document.createElement('article');
-        postEl.className = 'post-card';
+            // Page numbers
+            const maxVisible = 5;
+            let pages = [];
+            
+            if (totalPages <= maxVisible) {
+                for (let i = 1; i <= totalPages; i++) {
+                    pages.push(i);
+                }
+            } else {
+                if (currentPage <= 3) {
+                    pages = [1, 2, 3, 4, '...', totalPages];
+                } else if (currentPage >= totalPages - 2) {
+                    pages = [1, '...', totalPages - 3, totalPages - 2, totalPages - 1, totalPages];
+                } else {
+                    pages = [1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages];
+                }
+            }
 
-        postEl.innerHTML = `
-          <img src="${post.image}" alt="${post.title}" class="post-image" loading="lazy" />
-          <div class="post-content">
-            <h2 class="post-title">${post.title}</h2>
-            <p class="post-desc">${post.description}</p>
-            <time datetime="${post.date}" class="post-date">${new Date(post.date).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}</time>
-          </div>
-        `;
-        postsGrid.appendChild(postEl);
-      }
-    }
+            pages.forEach(page => {
+                if (typeof page === 'number') {
+                    paginationHTML += `
+                        <button class="page-btn ${page === currentPage ? 'active' : ''}" onclick="changePage(${page})">
+                            ${page}
+                        </button>
+                    `;
+                } else {
+                    paginationHTML += `<span class="page-btn" style="cursor: default;">${page}</span>`;
+                }
+            });
 
-    // Update pagination buttons
-    prevPageBtn.disabled = currentPage <= 1;
-    nextPageBtn.disabled = currentPage >= totalPages;
-  }
+            paginationHTML += `
+                <button class="page-btn" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>
+                    Next
+                    <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i>
+                </button>
+            `;
 
-  // Event Listeners
-  categorySelect.addEventListener('change', e => {
-    currentCategory = e.target.value;
-    currentPage = 1;
-    renderPosts();
-  });
+            pagination.innerHTML = paginationHTML;
+            lucide.createIcons();
+        }
 
-  searchInput.addEventListener('input', e => {
-    currentSearch = e.target.value.trim();
-    currentPage = 1;
-    renderPosts();
-  });
+        // Update results info
+        function updateResultsInfo(filteredPosts) {
+            if (filteredPosts.length === 0) {
+                resultsInfo.textContent = "No posts found matching your search criteria";
+                return;
+            }
 
-  prevPageBtn.addEventListener('click', () => {
-    if (currentPage > 1) {
-      currentPage--;
-      renderPosts();
-      window.scrollTo({ top: postsGrid.offsetTop - 30, behavior: 'smooth' });
-    }
-  });
+            const showing = Math.min(postsPerPage, filteredPosts.length);
+            let infoText = `Showing ${showing} of ${filteredPosts.length}`;
+            
+            if (activeCategory !== 'All') {
+                infoText += ` ${activeCategory.toLowerCase()}`;
+            }
+            
+            infoText += ' posts';
+            
+            if (searchTerm) {
+                infoText += ` for "${searchTerm}"`;
+            }
 
-  nextPageBtn.addEventListener('click', () => {
-    const filteredPosts = getFilteredPosts();
-    const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
-    if (currentPage < totalPages) {
-      currentPage++;
-      renderPosts();
-      window.scrollTo({ top: postsGrid.offsetTop - 30, behavior: 'smooth' });
-    }
-  });
+            resultsInfo.textContent = infoText;
+        }
 
-  // Initial render
-  renderPosts();
-</script>
+        // Render all content
+        function render() {
+            const filteredPosts = getFilteredPosts();
+            const paginatedPosts = getPaginatedPosts(filteredPosts);
+            
+            renderBlogCards(paginatedPosts);
+            renderPagination(filteredPosts.length);
+            updateResultsInfo(filteredPosts);
+        }
 
+        // Event handlers
+        function handleSearch(term) {
+            searchTerm = term;
+            currentPage = 1;
+            clearButton.style.display = term ? 'block' : 'none';
+            render();
+        }
+
+        function handleCategoryChange(category) {
+            activeCategory = category;
+            currentPage = 1;
+            
+            // Update active category pill
+            categoryFilters.querySelectorAll('.category-pill').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.category === category) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            render();
+        }
+
+        function changePage(page) {
+            currentPage = page;
+            render();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function resetFilters() {
+            searchTerm = '';
+            activeCategory = 'All';
+            currentPage = 1;
+            searchInput.value = '';
+            clearButton.style.display = 'none';
+            
+            categoryFilters.querySelectorAll('.category-pill').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.category === 'All') {
+                    btn.classList.add('active');
+                }
+            });
+            
+            render();
+        }
+
+        // Event listeners
+        searchInput.addEventListener('input', (e) => handleSearch(e.target.value));
+        clearButton.addEventListener('click', () => {
+            searchInput.value = '';
+            handleSearch('');
+        });
+
+        categoryFilters.addEventListener('click', (e) => {
+            if (e.target.classList.contains('category-pill')) {
+                handleCategoryChange(e.target.dataset.category);
+            }
+        });
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', () => {
+            render();
+        });
+
+        // Handle mobile menu (basic toggle)
+        document.querySelector('.menu-btn').addEventListener('click', () => {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+    </script>
 </body>
 </html>
