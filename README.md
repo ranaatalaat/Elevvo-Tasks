@@ -97,7 +97,7 @@ A sleek marketing landing page for **CloudSync Pro**, a fictional SaaS tool.
 ## 🎥 Demo  
 
 Want to see everything in action? Check out the **screen recording**:  
-👉 [Screen Recording](./screenshots/0826.mp4)  
+👉 (https://drive.google.com/drive/folders/1NPhTahM7SgR0IAr1H-Y2X8sXo-C7bQ75?usp=sharing)
 
 ---
 
