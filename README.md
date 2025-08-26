@@ -32,7 +32,7 @@ A clean, mobile-friendly **Contact Form** for sending messages.
 **Built with:** HTML, CSS, JavaScript  
 
 **Screenshot:**  
-![Contact Form](./screenshots/CF1.png)  
+![Contact Form](./Screenshots/CF1.png)  
 
 ---
 
@@ -48,11 +48,11 @@ A one-page website for **TaskFlow**, a fictional app that helps people stay orga
 **Built with:** HTML, CSS/Tailwind, JavaScript  
 
 **Screenshot:**  
-![TaskFlow](./screenshots/taskflow1.png)  
-![TaskFlow](./screenshots/taskflow2.png)  
-![TaskFlow](./screenshots/taskflow3.png)  
-![TaskFlow](./screenshots/taskflow4.png)  
-![TaskFlow](./screenshots/taskflow5.png)  
+![TaskFlow](./Screenshots/taskflow1.png)  
+![TaskFlow](./Screenshots/taskflow2.png)  
+![TaskFlow](./Screenshots/taskflow3.png)  
+![TaskFlow](./Screenshots/taskflow4.png)  
+![TaskFlow](./Screenshots/taskflow5.png)  
 ---
 
 ### **📝 Rana’s Blog (Personal Blog Homepage)**  
@@ -67,9 +67,9 @@ My very own **Rana’s Blog** homepage, showcasing stories about tech, travel, a
 **Built with:**  HTML, CSS/Tailwind, JavaScript  
 
 **Screenshot:**  
-![Rana’s Blog](./screenshots/blog1.png)  
-![Rana’s Blog](./screenshots/blogf2.png)  
-![Rana’s Blog](./screenshots/blog3.png)  
+![Rana’s Blog](./Screenshots/blog1.png)  
+![Rana’s Blog](./Screenshots/blogf2.png)  
+![Rana’s Blog](./Screenshots/blog3.png)  
 
 
 ---
@@ -85,11 +85,11 @@ A sleek marketing landing page for **CloudSync Pro**, a fictional SaaS tool.
 **Built with:** HTML, CSS, JavaScript, Flexbox/Grid, Tailwind/Bootstrap  
 
 **Screenshot:**  
-![CloudSync Pro](./screenshots/CS1.png)  
-![CloudSync Pro](./screenshots/CS2.png)  
-![CloudSync Pro](./screenshots/CS3.png)  
-![CloudSync Pro](./screenshots/CS4.png)  
-![CloudSync Pro](./screenshots/CS5.png)  
+![CloudSync Pro](./Screenshots/CS1.png)  
+![CloudSync Pro](./Screenshots/CS2.png)  
+![CloudSync Pro](./Screenshots/CS3.png)  
+![CloudSync Pro](./Screenshots/CS4.png)  
+![CloudSync Pro](./Screenshots/CS5.png)  
 ![CloudSync Pro (Night Mode)](./Screenshots/CSNM.png)  
 
 ---
